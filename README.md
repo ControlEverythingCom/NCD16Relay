@@ -33,64 +33,95 @@ NCD16Relay relayController;
 ```
 void setAddress(int a0, int a1, int a2);
 ```
->Must be called first before using the object.  This method accepts three int arguments.  This tells the Library what address to direct commands to.  a0, a1, and a2 ints are representations of the three jumpers on the 16 channel relay controller which are labeled on the board A0, A1, and A2.  If the jumper is installed then that int in this call should be set to 1.  If it is not installed then the int should be set to 0.  So if I have A0 and A1 installed I would call relayController.setAddress(1, 0, 1).
+>Must be called first before using the object.  This method should also be called any time communication with
+>the controller is lost or broken to recover communication  This method accepts three int arguments.  This
+>tells the Library what address to direct commands to.  a0, a1, and a2 ints are representations of the three
+>jumpers on the 16 channel relay controller which are labeled on the board A0, A1, and A2.  If the jumper is
+>installed then that int in this call should be set to 1.  If it is not installed then the int should be set to 
+>0.  So if I have A0 and A1 installed I would call relayController.setAddress(1, 0, 1).
 ```
 void turnOnRelay(int Relay);
 ```
->This method accepts one int argument.  Valid int arguments 1-16.  A call to this method will turn off the relay indicated by the passed int argument.
+>This method accepts one int argument.  Valid int arguments 1-16.  A call to this method will turn off the
+>relay indicated by the passed int argument.
 ```
 void turnOffRelay(int Relay);
 ```
->This method accepts one int argument.  Valid int arguments 1-16.  A call to this method will turn on the relay indicated by the passed int argument.
+>This method accepts one int argument.  Valid int arguments 1-16.  A call to this method will turn on the relay
+>indicated by the passed int argument.
 ```
 void turnOnAllRelays();
 ```
->This method does not accept any arguments.  A call to this method will turn on all 16 relays on the controller.
+>This method does not accept any arguments.  A call to this method will turn on all 16 relays on the
+>controller.
 ```
 void turnOffAllRelays();
 ```
->This method does not accept any arguments.  A call to this method will turn off all 16 relays on the controller.
+>This method does not accept any arguments.  A call to this method will turn off all 16 relays on the
+>controller.
 ```
 void turnOnAllRelays(int bank);
 ```
->This method accepts one int argument.  Valid ints are 1 or 2 for relay banks 1 and 2 respectively.  If 1 is passed relays 1-8 will be turned on.  If 2 is passed relays 9-16 will be turned on.
+>This method accepts one int argument.  Valid ints are 1 or 2 for relay banks 1 and 2 respectively.  If 1 is
+>passed relays 1-8 will be turned on.  If 2 is passed relays 9-16 will be turned on.
 ```
 void turnOffAllRelays(int bank);
 ```
->This method accepts one int argument.  Valid ints are 1 or 2 for relay banks 1 and 2 respectively.  If 1 is passed relays 1-8 will be turned off.  If 2 is passed relays 9-16 will be turned off.
+>This method accepts one int argument.  Valid ints are 1 or 2 for relay banks 1 and 2 respectively.  If 1 is
+>passed relays 1-8 will be turned off.  If 2 is passed relays 9-16 will be turned off.
 ```
 void toggleRelay(int relay);
 ```
->This method accepts one int argument.  Valid int arguments are 1-16.  A call to this method will toggle the status of the relay indicated by the passed int argument.  If the relay was previously off before the method call the relay will turn on and vice versa.
+>This method accepts one int argument.  Valid int arguments are 1-16.  A call to this method will toggle the
+>status of the relay indicated by the passed int argument.  If the relay was previously off before the method
+>call the relay will turn on and vice versa.
 ```
 void setBankStatus(int status, int bank);
 ```
->This method accepts two int arguments.  Valid status int arguments 0-255.  Valid bank arguments 1-2.  A call to this method will set the status of all relays in the specified bank(1 or 2) to the status byte passed in the second argument(status).  Each relay in the bank(total of 8) are represented as bits in the status argument.
+>This method accepts two int arguments.  Valid status int arguments 0-255.  Valid bank arguments 1-2.  A call
+>to this method will set the status of all relays in the specified bank(1 or 2) to the status byte passed in>
+the second argument(status).  Each relay in the bank(total of 8) are represented as bits in the status
+>argument.
 ```
 void setAllRelayStatus(int bank1, int bank2);
 ```
->This method accepts two int arguments.  Valid bank1 int arguments 0-255.  Valid bank2 int arguments 0-255.  A call to this method will set the status of all relays in banks 1(total of 8) and bank 2(total of 8) to the status ints passed in the bank1 and bank2 arguments.  Each relay in the bank are represented in bits in the bank1/2 argument.
+>This method accepts two int arguments.  Valid bank1 int arguments 0-255.  Valid bank2 int arguments 0-255.  A
+>call to this method will set the status of all relays in banks 1(total of 8) and bank 2(total of 8) to the
+>status ints passed in the bank1 and bank2 arguments.  Each relay in the bank are represented in bits in the
+>bank1/2 argument.
 ```
 int readRelayStatus(int relay);
 ```
->This method accepts one int argument and returns one int.  Valid relay int arguments 1-16.  A call to this method will read the status of the given relay passed by the relay argument and return the current on/off status of the given relay.  1 will be returned if the relay is on and 2 will be returned if the relay is off.  256 will be returned if an error has occured(generally due to lack of communication with the controller).
+>This method accepts one int argument and returns one int.  Valid relay int arguments 1-16.  A call to this
+>method will read the status of the given relay passed by the relay argument and return the current on/off
+>status of the given relay.  1 will be returned if the relay is on and 2 will be returned if the relay is off. 
+>256 will be returned if an error has occured(generally due to lack of communication with the controller).
 ```
 int readBankStatus(int bank);
 ```
->This method accepts one int argument and returns one int.  Valid bank int arguments 1-2.  A call to this method will read and return the status of all relays in the given bank(passed to method as bank int argument).  Each relay in the bank is represented in a bit in the returned int.  Valid returns are 0-255.  256 will be returned if an error has occured(generally due to lack of communciation with controller).
+>This method accepts one int argument and returns one int.  Valid bank int arguments 1-2.  A call to this
+>method will read and return the status of all relays in the given bank(passed to method as bank int argument). 
+>Each relay in the bank is represented in a bit in the returned int.  Valid returns are 0-255.  256 will be
+>returned if an error has occured(generally due to lack of communciation with controller).
 ###Public accessible variables
 ```
 bool initialized;
 ```
->This boolean indicates the current status of the interface connection to the controller.  This variable should be checked often throughout your application.  If communication to the board is lost for any reason this boolean variable will return false.  If all is well it will return true.
+>This boolean indicates the current status of the interface connection to the controller.  This variable should
+>be checked often throughout your application.  If communication to the board is lost for any reason this
+>boolean variable will return false.  If all is well it will return true.
 ```
 byte bankOneStatus;
 ```
->This byte will indicate the current status of relays in bank 1.  This byte can be checked at any point during the application rather than making method calls to read relay status.  Reading relay status through methods however is more accurate so use the methods when possible.
+>This byte will indicate the current status of relays in bank 1.  This byte can be checked at any point during
+>the application rather than making method calls to read relay status.  Reading relay status through methods
+>however is more accurate so use the methods when possible.
 ```
 byte bankTwoStatus;
 ```
->This byte will indicate the current status of relays in bank 2.  This byte can be checked at any point during the application rather than making method calls to read relay status.  Reading relay status through methods however is more accurate so use the methods when possible.
+>This byte will indicate the current status of relays in bank 2.  This byte can be checked at any point during
+>the application rather than making method calls to read relay status.  Reading relay status through methods
+>however is more accurate so use the methods when possible.
 
 
 License
