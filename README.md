@@ -39,11 +39,15 @@ void setAddress(int a0, int a1, int a2);
 >jumpers on the 16 channel relay controller which are labeled on the board A0, A1, and A2.  If the jumper is
 >installed then that int in this call should be set to 1.  If it is not installed then the int should be set to 
 >0.  So if I have A0 and A1 installed I would call relayController.setAddress(1, 0, 1).
+
+
 ```
 void turnOnRelay(int Relay);
 ```
 >This method accepts one int argument.  Valid int arguments 1-16.  A call to this method will turn off the
 >relay indicated by the passed int argument.
+
+
 ```
 void turnOffRelay(int Relay);
 ```
