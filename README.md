@@ -1,76 +1,100 @@
-About This Library is intended for use with the NCD 16 Channel Spark compatible relay controller.
+# About
+
+This Library is intended for use with the NCD 16 Channel Spark compatible relay controller.
 
 The intention of this library is to make use of the NCD 16 channel relay controller with Spark development web IDE as simple as possible for users.
+###Developer information
+NCD has been designing and manufacturing computer control products since 1995.  We have specialized in hardware design and manufacturing of Relay controllers for 20 years.  We pride ourselves as being the industry leader of computer control relay products.  Our products are proven reliable and we are very excited to support Spark.  For more information on NCD please visit www.controlanything.com 
 
-How to use Setup and register your Spark interface module. Review all documentation provided by Spark on setup, programming, and use.
+###Requirements
+- NCD 16 Channel Spark Compatible Relay board
+- Spark Core/Photon module
+- Knowledge base for developing and programming with Spark modules.
 
-Install the Spark module into the relay controller and power it up with a regulated 12VDC power supply via on board screw terminals or 2.1mm barrel jack(center pin possitive).
+### Version
+1.0.0
 
-Ensure your spark module is powered up and can establish connection to the Spark server.
+### How to use this library
 
-Open the Spark WEB IDE for programming. Navigate to Libraries and import the NCD16Relay library into your new project.
+The libary must be imported into your application.  This can be done through the Spark WEB IDE by selecting Libraries, then select the NCD16Relay.  Click Include in App button.  Select the App you want to include the library in.  Finally click Add to this app.  For more information see [Spark's documentation] [sparkIncludeLibrary] 
 
-Make sure to include the NCD16Relay Library and create an instance object of the NCD16Relay class in your application like this:
+### Example use
 
-include "NCD16Relay.h"
+Once the Library is included in your applicaiton you should see an include statement at the top like this:
+```
+//This #include statement was automatically added by the Spark IDE.
+#include "NCD16Relay/NCD16Relay.h"
+```
+Now you need to instanciate an object of the library for use in your application like this:
+```
 NCD16Relay relayController;
-
-Once you have a local instance of the class you can call all of its methods for interfacing with the 16 on board relays.
-
-Features
-
-Light weight library with very small memory footprint. Easy to use. Extensive command set for controlling and monitoring relays.
-
-Methods for V1.0.0
-
-```//Constructor 
-NCD16Relay(void);``` 
-
-//Set Address. Indicate status of jumpers on board. Send 0 for not installed, send 1 for installed 
-void setAddress(int a0, int a1, int a2); 
-
-//Turn on Relay 
-void turnOnRelay(int Relay); 
-
-//Turn off Relay 
-void turnOffRelay(int Relay); 
-
-//Turn On all Relays 
-void turnOnAllRelays(); 
-
-//Turn Off All Relays 
-void turnOffAllRelays(); 
-
-//Turn On All Relays in bank 
-void turnOnAllRelays(int bank); 
-
-//Turn Off All Relays in bank 
-void turnOffAllRelays(int bank); 
-
-//Toggle Relay 
-void toggleRelay(int relay); 
-
-//Set status of all relays in bank 
-void setBankStatus(int status, int bank); 
-
-//Set status of all relays on board 
+```
+###Public accessible methods
+```
+void setAddress(int a0, int a1, int a2);
+```
+>Must be called first before using the object.  This method accepts three int arguments.  This tells the Library what address to direct commands to.  a0, a1, and a2 ints are representations of the three jumpers on the 16 channel relay controller which are labeled on the board A0, A1, and A2.  If the jumper is installed then that int in this call should be set to 1.  If it is not installed then the int should be set to 0.  So if I have A0 and A1 installed I would call relayController.setAddress(1, 0, 1).
+```
+void turnOnRelay(int Relay);
+```
+>This method accepts one int argument.  Valid int arguments 1-16.  A call to this method will turn off the relay indicated by the passed int argument.
+```
+void turnOffRelay(int Relay);
+```
+>This method accepts one int argument.  Valid int arguments 1-16.  A call to this method will turn on the relay indicated by the passed int argument.
+```
+void turnOnAllRelays();
+```
+>This method does not accept any arguments.  A call to this method will turn on all 16 relays on the controller.
+```
+void turnOffAllRelays();
+```
+>This method does not accept any arguments.  A call to this method will turn off all 16 relays on the controller.
+```
+void turnOnAllRelays(int bank);
+```
+>This method accepts one int argument.  Valid ints are 1 or 2 for relay banks 1 and 2 respectively.  If 1 is passed relays 1-8 will be turned on.  If 2 is passed relays 9-16 will be turned on.
+```
+void turnOffAllRelays(int bank);
+```
+>This method accepts one int argument.  Valid ints are 1 or 2 for relay banks 1 and 2 respectively.  If 1 is passed relays 1-8 will be turned off.  If 2 is passed relays 9-16 will be turned off.
+```
+void toggleRelay(int relay);
+```
+>This method accepts one int argument.  Valid int arguments are 1-16.  A call to this method will toggle the status of the relay indicated by the passed int argument.  If the relay was previously off before the method call the relay will turn on and vice versa.
+```
+void setBankStatus(int status, int bank);
+```
+>This method accepts two int arguments.  Valid status int arguments 0-255.  Valid bank arguments 1-2.  A call to this method will set the status of all relays in the specified bank(1 or 2) to the status byte passed in the second argument(status).  Each relay in the bank(total of 8) are represented as bits in the status argument.
+```
 void setAllRelayStatus(int bank1, int bank2);
-
-//Read status of relay. Valid return 0 for off 1 for on. 256 returned if there is an error 
-int readRelayStatus(int relay); 
-
-//Read status of all relays in bank. 0-255 valid return. 256 returned on error 
+```
+>This method accepts two int arguments.  Valid bank1 int arguments 0-255.  Valid bank2 int arguments 0-255.  A call to this method will set the status of all relays in banks 1(total of 8) and bank 2(total of 8) to the status ints passed in the bank1 and bank2 arguments.  Each relay in the bank are represented in bits in the bank1/2 argument.
+```
+int readRelayStatus(int relay);
+```
+>This method accepts one int argument and returns one int.  Valid relay int arguments 1-16.  A call to this method will read the status of the given relay passed by the relay argument and return the current on/off status of the given relay.  1 will be returned if the relay is on and 2 will be returned if the relay is off.  256 will be returned if an error has occured(generally due to lack of communication with the controller).
+```
 int readBankStatus(int bank);
+```
+>This method accepts one int argument and returns one int.  Valid bank int arguments 1-2.  A call to this method will read and return the status of all relays in the given bank(passed to method as bank int argument).  Each relay in the bank is represented in a bit in the returned int.  Valid returns are 0-255.  256 will be returned if an error has occured(generally due to lack of communciation with controller).
+###Public accessible variables
+```
+bool initialized;
+```
+>This boolean indicates the current status of the interface connection to the controller.  This variable should be checked often throughout your application.  If communication to the board is lost for any reason this boolean variable will return false.  If all is well it will return true.
+```
+byte bankOneStatus;
+```
+>This byte will indicate the current status of relays in bank 1.  This byte can be checked at any point during the application rather than making method calls to read relay status.  Reading relay status through methods however is more accurate so use the methods when possible.
+```
+byte bankTwoStatus;
+```
+>This byte will indicate the current status of relays in bank 2.  This byte can be checked at any point during the application rather than making method calls to read relay status.  Reading relay status through methods however is more accurate so use the methods when possible.
 
-Public accessible variables:
 
-//Whether or not the controller is ready to accept commands 
-bool initialized; 
+License
+----
 
-//Status of relays in bank 1 byte 
-bankOneStatus; 
-
-//Status of relays in bank 2 byte 
-bankTwoStatus;
-
-Methods are quite intuitive but if there are any questions please let us know.
+GNU
+[sparkIncludeLibrary]:http://docs.spark.io/build/#flash-apps-with-spark-build-using-libraries
