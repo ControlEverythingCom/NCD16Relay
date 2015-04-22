@@ -23,7 +23,9 @@ Light weight library with very small memory footprint. Easy to use. Extensive co
 
 Methods for V1.0.0
 
-//Constructor NCD16Relay(void); 
+'''//Constructor 
+NCD16Relay(void);''' 
+
 //Set Address. Indicate status of jumpers on board. Send 0 for not installed, send 1 for installed 
 void setAddress(int a0, int a1, int a2); 
 
