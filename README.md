@@ -30,7 +30,7 @@ Now you need to instanciate an object of the library for use in your application
 NCD16Relay relayController;
 ```
 ###Public accessible methods
-```
+```cpp
 void setAddress(int a0, int a1, int a2);
 ```
 >Must be called first before using the object.  This method should also be called any time communication with
