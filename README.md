@@ -21,12 +21,12 @@ The libary must be imported into your application.  This can be done through the
 ### Example use
 
 Once the Library is included in your applicaiton you should see an include statement at the top like this:
-```
+```cpp
 //This #include statement was automatically added by the Spark IDE.
 #include "NCD16Relay/NCD16Relay.h"
 ```
 Now you need to instanciate an object of the library for use in your application like this:
-```
+```cpp
 NCD16Relay relayController;
 ```
 ###Public accessible methods
@@ -41,49 +41,49 @@ void setAddress(int a0, int a1, int a2);
 >0.  So if I have A0 and A1 installed I would call relayController.setAddress(1, 0, 1).
 
 
-```
+```cpp
 void turnOnRelay(int Relay);
 ```
 >This method accepts one int argument.  Valid int arguments 1-16.  A call to this method will turn off the
 >relay indicated by the passed int argument.
 
 
-```
+```cpp
 void turnOffRelay(int Relay);
 ```
 >This method accepts one int argument.  Valid int arguments 1-16.  A call to this method will turn on the relay
 >indicated by the passed int argument.
 
 
-```
+```cpp
 void turnOnAllRelays();
 ```
 >This method does not accept any arguments.  A call to this method will turn on all 16 relays on the
 >controller.
 
 
-```
+```cpp
 void turnOffAllRelays();
 ```
 >This method does not accept any arguments.  A call to this method will turn off all 16 relays on the
 >controller.
 
 
-```
+```cpp
 void turnOnAllRelays(int bank);
 ```
 >This method accepts one int argument.  Valid ints are 1 or 2 for relay banks 1 and 2 respectively.  If 1 is
 >passed relays 1-8 will be turned on.  If 2 is passed relays 9-16 will be turned on.
 
 
-```
+```cpp
 void turnOffAllRelays(int bank);
 ```
 >This method accepts one int argument.  Valid ints are 1 or 2 for relay banks 1 and 2 respectively.  If 1 is
 >passed relays 1-8 will be turned off.  If 2 is passed relays 9-16 will be turned off.
 
 
-```
+```cpp
 void toggleRelay(int relay);
 ```
 >This method accepts one int argument.  Valid int arguments are 1-16.  A call to this method will toggle the
@@ -91,7 +91,7 @@ void toggleRelay(int relay);
 >call the relay will turn on and vice versa.
 
 
-```
+```cpp
 void setBankStatus(int status, int bank);
 ```
 >This method accepts two int arguments.  Valid status int arguments 0-255.  Valid bank arguments 1-2.  A call
@@ -100,7 +100,7 @@ the second argument(status).  Each relay in the bank(total of 8) are represented
 >argument.
 
 
-```
+```cpp
 void setAllRelayStatus(int bank1, int bank2);
 ```
 >This method accepts two int arguments.  Valid bank1 int arguments 0-255.  Valid bank2 int arguments 0-255.  A
@@ -109,7 +109,7 @@ void setAllRelayStatus(int bank1, int bank2);
 >bank1/2 argument.
 
 
-```
+```cpp
 int readRelayStatus(int relay);
 ```
 >This method accepts one int argument and returns one int.  Valid relay int arguments 1-16.  A call to this
@@ -118,7 +118,7 @@ int readRelayStatus(int relay);
 >256 will be returned if an error has occured(generally due to lack of communication with the controller).
 
 
-```
+```cpp
 int readBankStatus(int bank);
 ```
 >This method accepts one int argument and returns one int.  Valid bank int arguments 1-2.  A call to this
@@ -128,7 +128,7 @@ int readBankStatus(int bank);
 
 
 ###Public accessible variables
-```
+```cpp
 bool initialized;
 ```
 >This boolean indicates the current status of the interface connection to the controller.  This variable should
@@ -136,7 +136,7 @@ bool initialized;
 >boolean variable will return false.  If all is well it will return true.
 
 
-```
+```cpp
 byte bankOneStatus;
 ```
 >This byte will indicate the current status of relays in bank 1.  This byte can be checked at any point during
@@ -144,7 +144,7 @@ byte bankOneStatus;
 >however is more accurate so use the methods when possible.
 
 
-```
+```cpp
 byte bankTwoStatus;
 ```
 >This byte will indicate the current status of relays in bank 2.  This byte can be checked at any point during
