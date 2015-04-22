@@ -29,6 +29,32 @@ Now you need to instanciate an object of the library for use in your application
 ```cpp
 NCD16Relay relayController;
 ```
+
+Here is an example use case for the class
+```cpp
+// This #include statement was automatically added by the Spark IDE.
+#include "NCD16Relay/NCD16Relay.h"
+NCD16Relay relayController;
+
+void setup() {
+relayController.setAddress(0, 0, 0);
+}
+
+void loop() {
+relayController.turnOnAllRelays();
+delay(500);
+relayController.turnOffAllRelays();
+delay(500);
+relayController.turnOnAllRelays(1);
+delay(500);
+relayController.turnOnAllRelays(2);
+delay(500);
+relayController.turnOffAllRelays(1);
+delay(500);
+relayController.turnOffAllRelays(2);
+}
+```
+
 ###Public accessible methods
 ```cpp
 void setAddress(int a0, int a1, int a2);
