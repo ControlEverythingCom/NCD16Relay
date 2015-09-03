@@ -1,5 +1,6 @@
 #include "spark_wiring_i2c.h"
 #include "spark_wiring_usbserial.h"
+#include "spark_wiring_constants.h"
 
 class NCD16Relay{
 public:

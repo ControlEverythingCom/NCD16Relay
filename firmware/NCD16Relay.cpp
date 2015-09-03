@@ -1,6 +1,6 @@
 #include "NCD16Relay.h"
 
-byte address = 0x20;
+int address = 0x20;
 
 //Constructor
 NCD16Relay::NCD16Relay(){
