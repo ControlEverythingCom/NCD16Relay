@@ -47,21 +47,23 @@ int triggerRelay(String command){
 		relayController.setAllRelayStatus(bank1, bank2);
 		return 1;
 	}
-	if(command.startsWith("setbankstatus:")){
-		Serial.println("Set Bank Status Command");
-		String status = command.substring(14,command.length());
-		int splitIndex = status.indexOf(",");
-		int bank = status.substring(0,splitIndex).toInt();
-		int bankStatus = command.substring(splitIndex+1, status.length()).toInt();
-		if(bankStatus < 0 || bankStatus > 255){
-			return 0;
-		}
-		Serial.print("Setting bank status to: ");
-		Serial.println(bankStatus);
-		relayController.setBankStatus(bank,bankStatus);
-		Serial.println("done");
-		return 1;
-	}
+    if(command.startsWith("setbankstatus:")){
+        Serial.println("Set Bank Status Command");
+        String status = command.substring(14,command.length());
+        int splitIndex = status.indexOf(",");
+        int bank = status.substring(0,splitIndex).toInt();
+        String bankString = status.substring(0,splitIndex);
+        int bankStatus = status.substring(splitIndex+1, status.length()).toInt();
+        String bankStatusString = status.substring(splitIndex+1, status.length());
+        if(bankStatus < 0 || bankStatus > 255){
+            return 0;
+        }
+        Serial.print("Setting bank "+bankString+ " status to: ");
+        Serial.println(bankStatusString);
+        relayController.setBankStatus(bank,bankStatus);
+        Serial.println("done");
+        return 1;
+    }
 	//Relay Specific Command
 	int relayNumber = command.substring(0,1).toInt();
 	Serial.print("relayNumber: ");
