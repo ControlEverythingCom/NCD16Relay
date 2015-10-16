@@ -1,5 +1,5 @@
 // This #include statement was automatically added by the Spark IDE.
-#include "NCD16Relay.h"
+#include "NCD16Relay/NCD16Relay.h"
 NCD16Relay relayController;
 
 void setup() {
