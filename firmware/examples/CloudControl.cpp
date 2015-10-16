@@ -52,15 +52,12 @@ int triggerRelay(String command){
         String status = command.substring(14,command.length());
         int splitIndex = status.indexOf(",");
         int bank = status.substring(0,splitIndex).toInt();
-        String bankString = status.substring(0,splitIndex);
         int bankStatus = status.substring(splitIndex+1, status.length()).toInt();
-        String bankStatusString = status.substring(splitIndex+1, status.length());
         if(bankStatus < 0 || bankStatus > 255){
             return 0;
         }
-        Serial.print("Setting bank "+bankString+ " status to: ");
-        Serial.println(bankStatusString);
-        relayController.setBankStatus(bank,bankStatus);
+        Serial.println("Setting bank "+String(bank)+ " status to: "+String(bankStatus));
+        relayController.setBankStatus(bankStatus,bank);
         Serial.println("done");
         return 1;
     }
