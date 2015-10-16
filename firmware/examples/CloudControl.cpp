@@ -62,10 +62,11 @@ int triggerRelay(String command){
         return 1;
     }
 	//Relay Specific Command
-	int relayNumber = command.substring(0,1).toInt();
+    int splitIndex = command.indexOf(",");
+    int relayNumber = command.substring(0,splitIndex).toInt();
 	Serial.print("relayNumber: ");
 	Serial.println(relayNumber);
-	String relayCommand = command.substring(1);
+	String relayCommand = command.substring(splitIndex+1);
 	Serial.print("relayCommand:");
 	Serial.print(relayCommand);
 	Serial.println(".");
